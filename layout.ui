@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <object class="GtkApplicationWindow" id="main_window">
+    <property name="title">VM Client</property>
+    <property name="default-width">400</property>
+    <property name="default-height">300</property>
+    <child>
+      <object class="GtkBox" id="main_box">
+        <property name="orientation">vertical</property>
+        <property name="spacing">10</property>
+        <property name="margin-start">10</property>
+        <property name="margin-end">10</property>
+        <property name="margin-top">10</property>
+        <property name="margin-bottom">10</property>
+
+        <!-- IP Address Input and Connect Button -->
+        <child>
+          <object class="GtkBox" id="connect_box">
+            <property name="orientation">horizontal</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkLabel" id="ip_label">
+                <property name="label">IP Address:</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="ip_entry">
+                <property name="placeholder-text">e.g., 192.168.122.179</property>
+                <property name="hexpand">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="connect_button">
+                <property name="label">Connect</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Text View for Server Messages -->
+        <child>
+          <object class="GtkScrolledWindow" id="messages_scroll">
+            <property name="hexpand">true</property>
+            <property name="vexpand">true</property>
+            <child>
+              <object class="GtkTextView" id="messages_view">
+                <property name="editable">false</property>
+                <property name="wrap-mode">word</property>
+                <property name="margin-start">5</property>
+                <property name="margin-end">5</property>
+                <property name="margin-top">5</property>
+                <property name="margin-bottom">5</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Command Input and Send Button -->
+        <child>
+          <object class="GtkBox" id="command_box">
+            <property name="orientation">horizontal</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkEntry" id="command_entry">
+                <property name="placeholder-text">Enter command...</property>
+                <property name="hexpand">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="send_button">
+                <property name="label">Send</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+      </object>
+    </child>
+  </object>
+</interface>
