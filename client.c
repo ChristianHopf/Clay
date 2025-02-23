@@ -42,48 +42,14 @@ int connect_to_server(const char *ip){
   return sock;
 }
 
+int send_command(int sockfd, const char *command, const char *text){
+  full_command = strcat(command, text);
+  full_length = strlen(full_command);
+  send(sockfd, full_command, full_length, 0);
+  return full_length;
+}
+
 int main() {
-  // Create socket
-  int sock = socket(AF_INET, SOCK_STREAM, 0);
-  if (sock < 0){
-    perror("Socket creation failed");
-    exit(1);
-  }
-
-  // Resolve hostname
-  struct addrinfo hints = {0};
-  struct addrinfo *res;
-  int status;
-  hints.ai_family = AF_INET;
-  hints.ai_socktype = SOCK_STREAM;
-  if ((status = getaddrinfo("irc.libera.chat", "6667", &hints, &res) != 0)) {
-    fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
-    close(sock);
-    exit(1);
-  }
-
-  // Define server info and connect via the socket
-  // struct sockaddr_in server = {0};
-  // server.sin_family = AF_INET;
-  // server.sin_port = htons(6667);
-  // inet_pton(AF_INET, "149.56.96.213", &server.sin_addr);
-
-  // Connect to the server via the socket, using the resolved addrinfo
-  if (connect(sock, res->ai_addr, res->ai_addrlen) < 0){
-    perror("Connection failed");
-    freeaddrinfo(res);
-    close(sock);
-    exit(1);
-  }
-  printf("Connection success!\n");
-  freeaddrinfo(res);
- 
-  // Send IRC registration commands through the socket
-  char *nick = "NICK test\r\n";
-  char *user = "USER test 0 * :Test User\r\n";
-  send(sock, nick, strlen(nick), 0);
-  send(sock, user, strlen(user), 0);
-
   // Loop recv into a 512-character buffer (max IRC msg length)
   char buffer[512];
   while (recv(sock, buffer, sizeof(buffer) - 1, 0) > 0) {
