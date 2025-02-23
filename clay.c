@@ -1,10 +1,16 @@
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>
 
+#include "client.h"
+
+int sockfd = -1;
+
 static void on_connect(GtkButton *button, gpointer user_data){
   GtkEntry *ip_entry = GTK_ENTRY(user_data);
   const char *ip = gtk_editable_get_text(GTK_EDITABLE(ip_entry));
   g_print("Connecting\n");
+  sockfd = connect_to_server(ip);
+  printf("Connected to %s\n", ip);
 }
 
 static void on_send(GtkButton *button, gpointer user_data){
