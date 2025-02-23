@@ -8,6 +8,8 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#include "client.h"
+
 // #define PORT "6667"
 
 int main() {
