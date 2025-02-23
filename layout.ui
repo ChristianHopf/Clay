@@ -62,6 +62,19 @@
             <property name="orientation">horizontal</property>
             <property name="spacing">5</property>
             <child>
+              <object class="GtkDropDown">
+                <property name="model">
+                  <object class="GtkStringList">
+                    <items>
+                      <item translatable="yes">NICK</item>
+                      <item translatable="yes">USER</item>
+                      <item translatable="yes">More later</item>
+                    </items>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
               <object class="GtkEntry" id="command_entry">
                 <property name="placeholder-text">Enter command...</property>
                 <property name="hexpand">true</property>
