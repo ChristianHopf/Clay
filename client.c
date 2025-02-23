@@ -12,6 +12,36 @@
 
 // #define PORT "6667"
 
+int connect_to_server(const char *ip){
+  int sock = socket(AF_INET, SOCK_STREAM, 0);
+  if (sock < 0){
+    perror("Error: failed to create socket");
+    return NULL;
+  }
+
+  struct addrinfo hints = {0};
+  struct addrinfo *res;
+  int status;
+  hints.ai_family = AF_INET;
+  hints.ai_socktype = SOCK_STREAM;
+  if((status = getaddrinfo(ip, "6667", &hints, &res) != 0)) {
+    fprintf(stderr, "getaddrinfo error: %s\n", gai_strerror(status));
+    close(sock);
+    return NULL;
+  }
+
+  // Connect to the server and return socket
+  if (connect(sock, res->ai_addr, res->ai_addrlen) < 0){
+    perror("Error: failed to connect to server");
+    freeaddrinfo(res);
+    close(sock);
+    return NULL;
+  }
+
+  freeaddrinfo(res);
+  return sock;
+}
+
 int main() {
   // Create socket
   int sock = socket(AF_INET, SOCK_STREAM, 0);
