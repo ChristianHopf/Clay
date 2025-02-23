@@ -15,7 +15,7 @@ int connect_to_server(const char *ip);
  * command: string representing command type (ex. NICK, USER, etc)
  * text: text of the command (ex. text after 'USER' in 'USER bruh * * :Bro Brah')
  */
-int send_command(int sockfd, const char *command, const char *text);
+int send_command(int sockfd, char *command, char *text);
 
 /* Polls for data in the socket sockfd via poll(),
  * then reads data into buffer
